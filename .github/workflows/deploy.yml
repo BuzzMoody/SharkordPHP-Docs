@@ -33,10 +33,10 @@ jobs:
 
     steps:
       - name: Checkout docs repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Checkout SharkordPHP source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: BuzzMoody/SharkordPHP
           path: SharkordPHP
@@ -61,7 +61,7 @@ jobs:
         run: php scripts/generate-api.php --src=SharkordPHP/src --out=src/content/docs/api
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
 
@@ -76,7 +76,7 @@ jobs:
         run: npm install
 
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Build Astro site
         run: npm run build

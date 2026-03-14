@@ -23,7 +23,7 @@ export default defineConfig({
             sidebar: [
                 {
                     label: 'Getting Started',
-                    link: '/getting-started',
+                    link: '/',
                 },
                 {
                     label: 'Guides',
