@@ -21,35 +21,67 @@ composer require buzzmoody/sharkordphp
 ```php
 <?php
 
-    declare(strict_types=1);
+	declare(strict_types=1);
+	
+	error_reporting(E_ALL);
 
-    require __DIR__ . '/vendor/autoload.php';
+	require __DIR__ . '/vendor/autoload.php';
 
-    use Sharkord\Sharkord;
-    use Sharkord\Models\Message;
+	use Sharkord\Sharkord;
+	use Sharkord\Models\Message;
+	use Sharkord\Models\User;
+	use Sharkord\Events;
 
-    $sharkord = new Sharkord(
-        config: [
-            'identity' => $_ENV['CHAT_USERNAME'],
-            'password' => $_ENV['CHAT_PASSWORD'],
-            'host'     => $_ENV['CHAT_HOST'],
-        ],
-        logLevel:            'Notice',
-        reconnect:           true,
-        maxReconnectAttempts: 5,
-    );
+	/*
+	* Supports pulling environment variables from .env file as well as Docker container.
+	* Hardcode your values at your own peril
+	* Example uses SHARKORD_IDENTITY, SHARKORD_PASSWORD and SHARKORD_HOST env vars.
+	*/
+	$sharkord = new Sharkord(
+		config: [
+			'identity' 	=> $_ENV['SHARKORD_IDENTITY'] ?? 'your-username',
+ 			'password'	=> $_ENV['SHARKORD_PASSWORD'] ?? 'your-password',
+ 			'host'		=> $_ENV['SHARKORD_HOST'] ?? 'server.example.com',
+		],
+		logLevel: 'Notice',
+		reconnect: true,
+		maxReconnectAttempts: 5	
+	);
+	
+	/*
+	* If you want to use dynamically loaded commands as per the examples directory
+	* uncomment the below along with the preg_match if statement further down
+	*/
+	# $sharkord->commands->loadFromDirectory(__DIR__ . '/Commands');
 
-    $sharkord->on('ready', function () use ($sharkord): void {
-        $sharkord->logger->notice("Logged in as {$sharkord->bot->name}!");
-    });
+	$sharkord->on(Events::READY, function(User $bot) use ($sharkord) {
+ 		$sharkord->logger->notice("Logged in as {$bot->name} and ready to chat!");
+	});
 
-    $sharkord->on('message', function (Message $message): void {
-        if ($message->content === '!ping') {
-            $message->reply('Pong!');
-        }
-    });
+	$sharkord->on(Events::MESSAGE_CREATE, function(Message $message) use ($sharkord) {
+		
+		$sharkord->logger->notice(sprintf(
+			"[#%s] %s: %s",
+			$message->channel->name,
+			$message->author->name,
+			$message->content
+		));
+		
+		/*
+		* Uncomment if you're using dynamically loaded Commands.
+		* Make sure to delete the ping/pong if statement.
+		*/
+		# if (preg_match('/^!([a-zA-Z]{2,})(?:\s+(.*))?$/', $message->content, $matches)) {
+		#	 $sharkord->commands->handle($message, $matches);
+		# }
+		
+		if ($message->content == '!ping') $message->reply('Pong!');
+		
+	});
 
-    $sharkord->run();
+	$sharkord->run();
+
+?>
 ```
 
 ## Next Steps
