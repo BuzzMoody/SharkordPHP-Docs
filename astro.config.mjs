@@ -41,6 +41,11 @@ export default defineConfig({
                             link: '/api',
                         },
                         {
+                            label: 'Events',
+                            collapsed: false,
+                            autogenerate: { directory: 'api/events' },
+                        },
+                        {
                             label: 'Models',
                             collapsed: false,
                             autogenerate: { directory: 'api/models' },
