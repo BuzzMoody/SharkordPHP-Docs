@@ -1,0 +1,22 @@
+/*
+ * src/styles/custom.css
+ *
+ * Starlight CSS variable overrides for SharkordPHP branding.
+ * Full list of available variables:
+ * https://starlight.astro.build/guides/css-and-tailwind/#starlight-css-variables
+ */
+
+:root {
+    /* Accent colour — used for links, active sidebar items, etc. */
+    --sl-color-accent-low:  #0d2d52;
+    --sl-color-accent:      #1d6fa4;
+    --sl-color-accent-high: #7ec8e3;
+
+    /* Code block font */
+    --sl-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+}
+
+/* Slightly increase code block font size for readability */
+.expressive-code pre {
+    font-size: 0.875rem;
+}

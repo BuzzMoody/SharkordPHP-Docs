@@ -1,0 +1,20 @@
+# Node
+node_modules/
+dist/
+.astro/
+
+# PHP
+vendor/
+
+# Auto-generated API docs — produced at build time by generate-api.php.
+# Do NOT commit these; they are always regenerated from SharkordPHP's DocBlocks.
+src/content/docs/api/*/
+
+# SharkordPHP source is cloned into this directory during CI.
+SharkordPHP/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

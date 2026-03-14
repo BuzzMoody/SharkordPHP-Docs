@@ -1,0 +1,101 @@
+name: Deploy Docs to GitHub Pages
+
+on:
+  # Rebuild when docs content is updated directly.
+  push:
+    branches: [main]
+
+  # Rebuild when SharkordPHP pushes to its main branch.
+  # Triggered by the repository_dispatch step in BuzzMoody/SharkordPHP.
+  repository_dispatch:
+    types: [sharkordphp-updated]
+
+  # Allow manual runs from the Actions tab.
+  workflow_dispatch:
+
+# Required for GitHub Pages deployment.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment runs at a time; in-progress runs are not cancelled
+# so that a partial deploy is never left live.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # ─── Build ───────────────────────────────────────────────────────────────────
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+
+      - name: Checkout SharkordPHP source
+        uses: actions/checkout@v4
+        with:
+          repository: BuzzMoody/SharkordPHP
+          path: SharkordPHP
+
+      - name: Setup PHP 8.5
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.json') }}
+          restore-keys: composer-
+
+      - name: Install PHP dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Generate API documentation
+        run: php scripts/generate-api.php --src=SharkordPHP/src --out=src/content/docs/api
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Cache Node dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-${{ hashFiles('package.json') }}
+          restore-keys: node-
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  # ─── Deploy ──────────────────────────────────────────────────────────────────
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
