@@ -95,6 +95,28 @@
 	}
 
 	/**
+	 * Holds parsed information about a single class constant.
+	 */
+	final class ConstantInfo {
+
+		/**
+		 * @param string   $name        Constant name (e.g. 'MESSAGE_CREATE').
+		 * @param string   $value       The constant's scalar value as a string.
+		 * @param string   $summary     First line of the docblock.
+		 * @param string   $description Extended description body.
+		 * @param string[] $examples    Raw example code blocks.
+		 */
+		public function __construct(
+			public readonly string $name,
+			public readonly string $value,
+			public readonly string $summary,
+			public readonly string $description,
+			public readonly array  $examples,
+		) {}
+
+	}
+
+	/**
 	 * Holds all parsed information about a single class method.
 	 */
 	final class MethodInfo {
@@ -132,15 +154,16 @@
 	final class ClassInfo {
 
 		/**
-		 * @param string         $name        Short class name (no namespace).
-		 * @param string         $namespace   Fully-qualified namespace string.
-		 * @param string         $type        One of: 'class', 'interface', 'enum'.
-		 * @param string         $summary     First line of the class docblock.
-		 * @param string         $description Extended description body.
-		 * @param PropertyInfo[] $properties  Parsed properties and @property-read tags.
-		 * @param MethodInfo[]   $methods     Parsed public, non-internal methods.
-		 * @param string[]       $examples    Class-level example blocks.
-		 * @param string[]       $enumCases   Formatted enum cases (e.g. "TEXT = 'TEXT'").
+		 * @param string          $name        Short class name (no namespace).
+		 * @param string          $namespace   Fully-qualified namespace string.
+		 * @param string          $type        One of: 'class', 'interface', 'enum'.
+		 * @param string          $summary     First line of the class docblock.
+		 * @param string          $description Extended description body.
+		 * @param PropertyInfo[]  $properties  Parsed properties and @property-read tags.
+		 * @param MethodInfo[]    $methods     Parsed public, non-internal methods.
+		 * @param string[]        $examples    Class-level example blocks.
+		 * @param string[]        $enumCases   Formatted enum cases (e.g. "TEXT = 'TEXT'").
+		 * @param ConstantInfo[]  $constants   Parsed public class constants.
 		 */
 		public function __construct(
 			public readonly string $name,
@@ -151,7 +174,8 @@
 			public readonly array  $properties,
 			public readonly array  $methods,
 			public readonly array  $examples,
-			public readonly array  $enumCases = [],
+			public readonly array  $enumCases  = [],
+			public readonly array  $constants  = [],
 		) {}
 
 		/**
@@ -431,6 +455,7 @@
 			// Magic @property-read entries come first, then declared properties.
 			$properties = [...$magicProperties, ...$declaredProperties];
 			$methods    = $this->parseMethods($node->stmts);
+			$constants  = $this->parseConstants($node->stmts);
 
 			return new ClassInfo(
 				name:        $node->name->name,
@@ -441,6 +466,7 @@
 				properties:  $properties,
 				methods:     $methods,
 				examples:    $examples,
+				constants:   $constants,
 			);
 
 		}
@@ -567,6 +593,78 @@
 			$examples = $this->extractExamples($rawComment);
 
 			return [$summary, $description, $properties, $examples, $isInternal];
+
+		}
+
+		/**
+		 * Parses public class constants from a list of class body statements.
+		 *
+		 * Only constants with a docblock are included — bare constants with no
+		 * documentation are skipped as they provide no value in the reference output.
+		 *
+		 * @param  Node\Stmt[] $stmts
+		 * @return ConstantInfo[]
+		 */
+		private function parseConstants(array $stmts): array {
+
+			$constants = [];
+
+			foreach ($stmts as $stmt) {
+
+				if (!($stmt instanceof Node\Stmt\ClassConst)) {
+					continue;
+				}
+
+				if (!($stmt->flags & Node\Stmt\Class_::MODIFIER_PUBLIC)) {
+					continue;
+				}
+
+				$rawComment = $stmt->getDocComment()?->getText() ?? '';
+
+				if ($rawComment === '') {
+					continue;
+				}
+
+				$summary     = '';
+				$description = '';
+				$isInternal  = false;
+
+				try {
+					$docBlock    = $this->docBlockFactory->create($rawComment);
+					$summary    = $docBlock->getSummary();
+					$description = (string) $docBlock->getDescription();
+					$isInternal  = count($docBlock->getTagsByName('internal')) > 0;
+				} catch (\Throwable) {}
+
+				if ($isInternal) {
+					continue;
+				}
+
+				$examples = $this->extractExamples($rawComment);
+
+				foreach ($stmt->consts as $const) {
+
+					$value = match (true) {
+						$const->value instanceof Node\Scalar\String_ => "'{$const->value->value}'",
+						$const->value instanceof Node\Scalar\Int_    => (string) $const->value->value,
+						$const->value instanceof Node\Scalar\Float_  => (string) $const->value->value,
+						$const->value instanceof Node\Expr\ConstFetch => $const->value->name->toString(),
+						default                                       => '',
+					};
+
+					$constants[] = new ConstantInfo(
+						name:        $const->name->name,
+						value:       $value,
+						summary:     $summary,
+						description: $description,
+						examples:    $examples,
+					);
+
+				}
+
+			}
+
+			return $constants;
 
 		}
 
@@ -893,6 +991,46 @@
 					$lines[] = "| `{$prop->name}`{$badge} | `{$prop->type}` | {$desc} |";
 				}
 				$lines[] = '';
+			}
+
+			// --- Constants ---
+			if (!empty($info->constants)) {
+				$lines[] = '## Constants';
+				$lines[] = '';
+
+				foreach ($info->constants as $const) {
+
+					$lines[] = "### `{$const->name}`";
+					$lines[] = '';
+
+					if ($const->value !== '') {
+						$lines[] = "**Value** `{$const->value}`";
+						$lines[] = '';
+					}
+
+					if ($const->summary !== '') {
+						$lines[] = $const->summary;
+						$lines[] = '';
+					}
+
+					if ($const->description !== '') {
+						$lines[] = $const->description;
+						$lines[] = '';
+					}
+
+					if (!empty($const->examples)) {
+						$lines[] = '**Example**';
+						$lines[] = '';
+						foreach ($const->examples as $example) {
+							$lines[] = $this->ensureCodeFence($example);
+							$lines[] = '';
+						}
+					}
+
+					$lines[] = '---';
+					$lines[] = '';
+
+				}
 			}
 
 			// --- Methods ---
