@@ -5,12 +5,11 @@ import starlight from '@astrojs/starlight';
 // When deploying to a custom domain, remove the `base` option and update `site`.
 // When deploying to GitHub Pages without a custom domain, keep both as-is.
 export default defineConfig({
-    site: 'https://buzzmoody.github.io',
-    base: '/SharkordPHP-Docs',
+    site: 'https://sharkordphp.xyz',
     integrations: [
         starlight({
             title: 'SharkordPHP',
-            description: 'A ReactPHP chatbot framework for the Sharkord platform.',
+            description: 'A ReactPHP Chatbot Framework for Sharkord',
             social: [
                 {
                     icon: 'github',
