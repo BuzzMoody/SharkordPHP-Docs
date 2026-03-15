@@ -228,6 +228,7 @@
 			'Sharkord\\Managers'    => 'managers',
 			'Sharkord\\Collections' => 'collections',
 			'Sharkord\\Commands'    => 'commands',
+			'Sharkord\\Builders'	=> 'builders',
 		];
 
 		/**

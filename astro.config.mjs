@@ -64,6 +64,11 @@ export default defineConfig({
                             collapsed: false,
                             autogenerate: { directory: 'api/managers' },
                         },
+						{
+							label: 'Builders',
+							collapsed: false,
+							autogenerate: { directory: 'api/builders' },
+						},
                         {
                             label: 'Collections',
                             collapsed: true,
