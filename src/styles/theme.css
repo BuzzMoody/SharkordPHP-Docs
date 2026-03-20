@@ -1,0 +1,110 @@
+/*
+ * SharkordPHP Docs — Custom Theme
+ *
+ * Colours extracted from the reverse proxy comparison table.
+ * Drop this file anywhere in your project (e.g. src/styles/theme.css)
+ * and reference it in astro.config.mjs:
+ *
+ *   starlight({
+ *     customCss: ['./src/styles/theme.css'],
+ *   })
+ */
+
+/* ─── Light mode ─────────────────────────────────────────────────────────── */
+:root {
+
+	/* Page and sidebar backgrounds */
+	--sl-color-bg:          #f5f5f3;
+	--sl-color-bg-nav:      #ffffff;
+	--sl-color-bg-sidebar:  #ffffff;
+	--sl-color-bg-inline-code: rgba(0, 0, 0, 0.06);
+
+	/* Text */
+	--sl-color-white:        #1a1a18;
+	--sl-color-gray-1:       #1a1a18;
+	--sl-color-gray-2:       #2e2e2b;
+	--sl-color-gray-3:       #5f5e5a;
+	--sl-color-gray-4:       #8a8983;
+	--sl-color-gray-5:       #c2c1bb;
+	--sl-color-gray-6:       #e8e7e3;
+	--sl-color-black:        #ffffff;
+
+	/* Accent — blue from the info badge (#378ADD) */
+	--sl-color-accent-low:   #e6f1fb;
+	--sl-color-accent:       #378ADD;
+	--sl-color-accent-high:  #185fa5;
+
+	/* Borders */
+	--sl-color-hairline-light: rgba(0, 0, 0, 0.08);
+	--sl-color-hairline:       rgba(0, 0, 0, 0.15);
+	--sl-color-hairline-shade: rgba(0, 0, 0, 0.20);
+
+	/* Cards and panels */
+	--sl-color-bg-tip:       #eaf3de;
+	--sl-color-tip:          #3b6d11;
+
+}
+
+/* ─── Dark mode ──────────────────────────────────────────────────────────── */
+:root[data-theme='dark'] {
+
+	/* Page and sidebar backgrounds */
+	--sl-color-bg:          #1e1e1c;
+	--sl-color-bg-nav:      #2a2a28;
+	--sl-color-bg-sidebar:  #2a2a28;
+	--sl-color-bg-inline-code: rgba(255, 255, 255, 0.08);
+
+	/* Text */
+	--sl-color-white:        #f0ede8;
+	--sl-color-gray-1:       #f0ede8;
+	--sl-color-gray-2:       #d8d5d0;
+	--sl-color-gray-3:       #b4b2a9;
+	--sl-color-gray-4:       #7a7972;
+	--sl-color-gray-5:       #4a4945;
+	--sl-color-gray-6:       #323230;
+	--sl-color-black:        #1e1e1c;
+
+	/* Accent — blue, lightened for dark backgrounds */
+	--sl-color-accent-low:   #0c447c;
+	--sl-color-accent:       #378ADD;
+	--sl-color-accent-high:  #85b7eb;
+
+	/* Borders */
+	--sl-color-hairline-light: rgba(255, 255, 255, 0.06);
+	--sl-color-hairline:       rgba(255, 255, 255, 0.15);
+	--sl-color-hairline-shade: rgba(255, 255, 255, 0.20);
+
+	/* Cards and panels */
+	--sl-color-bg-tip:       #27500a;
+	--sl-color-tip:          #c0dd97;
+
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────── */
+:root {
+	--sl-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--sl-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+}
+
+/* Slightly increase code block font size for readability */
+.expressive-code pre {
+	font-size: 0.875rem;
+}
+
+/* ─── Sidebar refinements ────────────────────────────────────────────────── */
+.sidebar-pane {
+	border-right: 0.5px solid var(--sl-color-hairline);
+}
+
+/* ─── Code block refinements ─────────────────────────────────────────────── */
+.astro-code,
+pre.astro-code {
+	border: 0.5px solid var(--sl-color-hairline);
+	border-radius: 8px;
+}
+
+/* ─── Card / aside refinements ───────────────────────────────────────────── */
+.starlight-aside {
+	border-radius: 8px;
+	border-width: 0.5px;
+}
