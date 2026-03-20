@@ -26,10 +26,6 @@ export default defineConfig({
                     link: '/',
                 },
                 {
-                    label: 'Guides',
-                    autogenerate: { directory: 'guides' },
-                },
-                {
                     label: 'Examples',
                     autogenerate: { directory: 'examples' },
                 },
@@ -40,6 +36,10 @@ export default defineConfig({
                             label: 'Overview',
                             link: '/api',
                         },
+						{ 
+							label: 'Scheduler', 
+							link: '/api/scheduler/',
+						},
                         {
 							label: 'Events',
 							collapsed: false,
@@ -67,10 +67,6 @@ export default defineConfig({
                             collapsed: true,
                             autogenerate: { directory: 'api/collections' },
                         },
-						{ 
-							label: 'Scheduler', 
-							link: '/api/scheduler/',
-						},
                         {
                             label: 'Commands',
                             collapsed: true,
