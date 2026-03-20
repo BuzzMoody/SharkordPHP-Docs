@@ -29,10 +29,10 @@
 	--sl-color-gray-6:       #e8e7e3;
 	--sl-color-black:        #ffffff;
 
-	/* Accent — blue from the info badge (#378ADD) */
-	--sl-color-accent-low:   #e6f1fb;
-	--sl-color-accent:       #378ADD;
-	--sl-color-accent-high:  #185fa5;
+	/* Accent — GitHub-style blue */
+	--sl-color-accent-low:   #ddeeff;
+	--sl-color-accent:       #4493f8;
+	--sl-color-accent-high:  #1a6bbf;
 
 	/* Borders */
 	--sl-color-hairline-light: rgba(0, 0, 0, 0.08);
@@ -64,10 +64,10 @@
 	--sl-color-gray-6:       #323230;
 	--sl-color-black:        #1e1e1c;
 
-	/* Accent — blue, lightened for dark backgrounds */
-	--sl-color-accent-low:   #0c447c;
-	--sl-color-accent:       #378ADD;
-	--sl-color-accent-high:  #85b7eb;
+	/* Accent — GitHub-style blue, lightened for dark backgrounds */
+	--sl-color-accent-low:   #0d2d52;
+	--sl-color-accent:       #4493f8;
+	--sl-color-accent-high:  #a0c8fb;
 
 	/* Borders */
 	--sl-color-hairline-light: rgba(255, 255, 255, 0.06);
@@ -103,11 +103,11 @@
 	letter-spacing: -0.02em;
 	background: linear-gradient(
 		120deg,
-		#0a3d6b 0%,
-		#1060a0 30%,
-		#2680cc 50%,
-		#1060a0 70%,
-		#0a3d6b 100%
+		#1a6bbf 0%,
+		#4493f8 30%,
+		#6aaeff 50%,
+		#4493f8 70%,
+		#1a6bbf 100%
 	);
 	background-size: 250% 250%;
 	-webkit-background-clip: text;
@@ -119,11 +119,11 @@
 :root[data-theme='dark'] .site-title {
 	background: linear-gradient(
 		120deg,
-		#1a6ab5 0%,
-		#378ADD 30%,
-		#5ba8e8 50%,
-		#378ADD 70%,
-		#1a6ab5 100%
+		#4493f8 0%,
+		#6aaeff 30%,
+		#a0c8fb 50%,
+		#6aaeff 70%,
+		#4493f8 100%
 	);
 	background-size: 250% 250%;
 	-webkit-background-clip: text;
