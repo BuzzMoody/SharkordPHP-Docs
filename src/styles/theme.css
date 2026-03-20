@@ -103,11 +103,11 @@
 	letter-spacing: -0.02em;
 	background: linear-gradient(
 		120deg,
-		#185fa5 0%,
-		#378ADD 35%,
-		#85b7eb 50%,
-		#378ADD 65%,
-		#185fa5 100%
+		#0a3d6b 0%,
+		#1060a0 30%,
+		#2680cc 50%,
+		#1060a0 70%,
+		#0a3d6b 100%
 	);
 	background-size: 250% 250%;
 	-webkit-background-clip: text;
@@ -119,11 +119,11 @@
 :root[data-theme='dark'] .site-title {
 	background: linear-gradient(
 		120deg,
-		#378ADD 0%,
-		#85b7eb 35%,
-		#cce4f7 50%,
-		#85b7eb 65%,
-		#378ADD 100%
+		#1a6ab5 0%,
+		#378ADD 30%,
+		#5ba8e8 50%,
+		#378ADD 70%,
+		#1a6ab5 100%
 	);
 	background-size: 250% 250%;
 	-webkit-background-clip: text;
