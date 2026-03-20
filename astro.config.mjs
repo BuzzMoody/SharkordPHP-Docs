@@ -45,28 +45,21 @@ export default defineConfig({
 							collapsed: false,
 							items: [
 								{ label: 'Overview', link: '/api/events/' },
-								{ label: 'Ready', link: '/api/events/#ready' },
-								{ label: 'Messages', link: '/api/events/#message_create' },
-								{ label: 'Channels', link: '/api/events/#channel_create' },
-								{ label: 'Users', link: '/api/events/#user_create' },
-								{ label: 'Roles', link: '/api/events/#role_create' },
-								{ label: 'Categories', link: '/api/events/#category_create' },
-								{ label: 'Server', link: '/api/events/#server_update' },
 							],
 						},
                         {
                             label: 'Models',
-                            collapsed: false,
+                            collapsed: true,
                             autogenerate: { directory: 'api/models' },
                         },
                         {
                             label: 'Managers',
-                            collapsed: false,
+                            collapsed: true,
                             autogenerate: { directory: 'api/managers' },
                         },
 						{
 							label: 'Builders',
-							collapsed: false,
+							collapsed: true,
 							autogenerate: { directory: 'api/builders' },
 						},
                         {
@@ -74,6 +67,10 @@ export default defineConfig({
                             collapsed: true,
                             autogenerate: { directory: 'api/collections' },
                         },
+						{ 
+							label: 'Scheduler', 
+							link: '/api/scheduler/',
+						},
                         {
                             label: 'Commands',
                             collapsed: true,
