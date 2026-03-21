@@ -10,7 +10,7 @@ export default defineConfig({
         starlight({
             title: 'SharkordPHP',
 			logo: {
-                src: '/logo.png',
+                src: './src/assets/logo.png',
 				alt: 'SharkordPHP',
             },
             favicon: '/favicon.ico',
