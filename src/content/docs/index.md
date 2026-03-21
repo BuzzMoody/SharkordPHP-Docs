@@ -5,6 +5,10 @@ description: How to install SharkordPHP and run your first bot locally.
 
 SharkordPHP is a PHP bot framework for [Sharkord](https://github.com/Sharkord/sharkord) built on [ReactPHP](https://reactphp.org/). This guide walks you through setting up a working bot from scratch on your local machine.
 
+<div style="text-align: center;">
+    <img src="/logo.png" alt="Description" />
+</div>
+
 ## Requirements
 
 - PHP **8.5** or higher
