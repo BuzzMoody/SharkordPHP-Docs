@@ -111,7 +111,7 @@
 }
 
 /* ─── Code blocks — dark in both modes (matches Sharkord style) ──────────── */
-.expressive-code pre {
+[data-theme='dark'] .expressive-code pre {
     font-size: 0.875rem;
     background-color: #161616 !important;
     border-radius: 6px;
