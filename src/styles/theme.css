@@ -1,151 +1,137 @@
 /*
- * SharkordPHP Docs — Custom Theme
+ * src/styles/custom.css
  *
- * Colours extracted from the reverse proxy comparison table.
- * Drop this file anywhere in your project (e.g. src/styles/theme.css)
- * and reference it in astro.config.mjs:
+ * SharkordPHP docs theme — matched to the Sharkord platform docs aesthetic.
+ * Near-black backgrounds, minimal chrome, white text, subtle gray borders.
  *
- *   starlight({
- *     customCss: ['./src/styles/theme.css'],
- *   })
+ * Starlight CSS variable reference:
+ * https://starlight.astro.build/guides/css-and-tailwind/#starlight-css-variables
  */
 
-/* ─── Light mode ─────────────────────────────────────────────────────────── */
+/* ─── Dark mode ───────────────────────────────────────────────────────────── */
+:root[data-theme='dark'],
 :root {
 
-	/* Page and sidebar backgrounds */
-	--sl-color-bg:          #f5f5f3;
-	--sl-color-bg-nav:      #ffffff;
-	--sl-color-bg-sidebar:  #ffffff;
-	--sl-color-bg-inline-code: rgba(0, 0, 0, 0.06);
+    /* Accent — white/near-white, matching the active sidebar item indicator */
+    --sl-color-accent-low:  #1a1a1a;
+    --sl-color-accent:      #888888;
+    --sl-color-accent-high: #ffffff;
 
-	/* Text */
-	--sl-color-white:        #1a1a18;
-	--sl-color-gray-1:       #1a1a18;
-	--sl-color-gray-2:       #2e2e2b;
-	--sl-color-gray-3:       #5f5e5a;
-	--sl-color-gray-4:       #8a8983;
-	--sl-color-gray-5:       #c2c1bb;
-	--sl-color-gray-6:       #e8e7e3;
-	--sl-color-black:        #ffffff;
+    /* Page backgrounds */
+    --sl-color-bg:          #0e0e0e;
+    --sl-color-bg-nav:      #0e0e0e;
+    --sl-color-bg-sidebar:  #111111;
 
-	/* Accent — GitHub-style blue */
-	--sl-color-accent-low:   #ddeeff;
-	--sl-color-accent:       #4493f8;
-	--sl-color-accent-high:  #1a6bbf;
+    /* Inline code background */
+    --sl-color-bg-inline-code: #1c1c1c;
 
-	/* Borders */
-	--sl-color-hairline-light: rgba(0, 0, 0, 0.08);
-	--sl-color-hairline:       rgba(0, 0, 0, 0.15);
-	--sl-color-hairline-shade: rgba(0, 0, 0, 0.20);
+    /* Borders */
+    --sl-color-hairline:        #222222;
+    --sl-color-hairline-light:  #1e1e1e;
+    --sl-color-hairline-shade:  #1a1a1a;
 
-	/* Cards and panels */
-	--sl-color-bg-tip:       #eaf3de;
-	--sl-color-tip:          #3b6d11;
+    /* Text scale — white down to near-invisible */
+    --sl-color-white:   #ffffff;
+    --sl-color-gray-1:  #d0d0d0;
+    --sl-color-gray-2:  #a0a0a0;
+    --sl-color-gray-3:  #666666;
+    --sl-color-gray-4:  #333333;
+    --sl-color-gray-5:  #1e1e1e;
+    --sl-color-gray-6:  #141414;
+    --sl-color-black:   #0e0e0e;
 
-}
-
-/* ─── Dark mode ──────────────────────────────────────────────────────────── */
-:root[data-theme='dark'] {
-
-	/* Page and sidebar backgrounds */
-	--sl-color-bg:          #1e1e1c;
-	--sl-color-bg-nav:      #2a2a28;
-	--sl-color-bg-sidebar:  #2a2a28;
-	--sl-color-bg-inline-code: rgba(255, 255, 255, 0.08);
-
-	/* Text */
-	--sl-color-white:        #f0ede8;
-	--sl-color-gray-1:       #f0ede8;
-	--sl-color-gray-2:       #d8d5d0;
-	--sl-color-gray-3:       #b4b2a9;
-	--sl-color-gray-4:       #7a7972;
-	--sl-color-gray-5:       #4a4945;
-	--sl-color-gray-6:       #323230;
-	--sl-color-black:        #1e1e1c;
-
-	/* Accent — GitHub-style blue, lightened for dark backgrounds */
-	--sl-color-accent-low:   #0d2d52;
-	--sl-color-accent:       #4493f8;
-	--sl-color-accent-high:  #a0c8fb;
-
-	/* Borders */
-	--sl-color-hairline-light: rgba(255, 255, 255, 0.06);
-	--sl-color-hairline:       rgba(255, 255, 255, 0.15);
-	--sl-color-hairline-shade: rgba(255, 255, 255, 0.20);
-
-	/* Cards and panels */
-	--sl-color-bg-tip:       #27500a;
-	--sl-color-tip:          #c0dd97;
+    /* Monospace font */
+    --sl-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 
 }
 
-/* ─── Typography ─────────────────────────────────────────────────────────── */
-:root {
-	--sl-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	--sl-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+/* ─── Light mode ──────────────────────────────────────────────────────────── */
+:root[data-theme='light'] {
+
+    --sl-color-accent-low:  #e8e8e8;
+    --sl-color-accent:      #555555;
+    --sl-color-accent-high: #111111;
+
+    --sl-color-bg:          #ffffff;
+    --sl-color-bg-nav:      #fafafa;
+    --sl-color-bg-sidebar:  #f5f5f5;
+    --sl-color-bg-inline-code: #efefef;
+
+    --sl-color-hairline:        #e0e0e0;
+    --sl-color-hairline-light:  #ebebeb;
+    --sl-color-hairline-shade:  #d8d8d8;
+
+    --sl-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
 }
 
-/* Slightly increase code block font size for readability */
+/* ─── Active sidebar item — white left border, subtle bg ─────────────────── */
+[data-theme='dark'] a[aria-current='page'],
+[data-theme='dark'] a[aria-current='page']:hover {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-inline-start-color: #ffffff;
+}
+
+/* ─── Sidebar group labels ────────────────────────────────────────────────── */
+[data-theme='dark'] .group-label span {
+    color: var(--sl-color-gray-2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ─── Code blocks ─────────────────────────────────────────────────────────── */
 .expressive-code pre {
-	font-size: 0.875rem;
+    font-size: 0.875rem;
+    background-color: #161616 !important;
+    border: 1px solid #222222;
+    border-radius: 6px;
 }
 
-/* ─── Site title ─────────────────────────────────────────────────────────── */
-@keyframes shimmer {
-	0%   { background-position: 0% 50%; }
-	50%  { background-position: 100% 50%; }
-	100% { background-position: 0% 50%; }
+/* ─── Inline code ─────────────────────────────────────────────────────────── */
+:not(pre) > code {
+    background-color: var(--sl-color-bg-inline-code);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+    font-size: 0.875em;
+    color: #d0d0d0;
 }
 
-.site-title {
-	font-weight: 700;
-	letter-spacing: -0.02em;
-	background: linear-gradient(
-		120deg,
-		#1a6bbf 0%,
-		#4493f8 30%,
-		#6aaeff 50%,
-		#4493f8 70%,
-		#1a6bbf 100%
-	);
-	background-size: 250% 250%;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-	animation: shimmer 6s ease infinite;
+/* ─── Tables ──────────────────────────────────────────────────────────────── */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9rem;
 }
 
-:root[data-theme='dark'] .site-title {
-	background: linear-gradient(
-		120deg,
-		#4493f8 0%,
-		#6aaeff 30%,
-		#a0c8fb 50%,
-		#6aaeff 70%,
-		#4493f8 100%
-	);
-	background-size: 250% 250%;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-	animation: shimmer 6s ease infinite;
+th {
+    background-color: #161616;
+    color: #d0d0d0;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #333333;
 }
 
-/* ─── Sidebar refinements ────────────────────────────────────────────────── */
-.sidebar-pane {
-	border-right: 0.5px solid var(--sl-color-hairline);
+td {
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid #1e1e1e;
 }
 
-/* ─── Code block refinements ─────────────────────────────────────────────── */
-.astro-code,
-pre.astro-code {
-	border: 0.5px solid var(--sl-color-hairline);
-	border-radius: 8px;
+tr:last-child td {
+    border-bottom: none;
 }
 
-/* ─── Card / aside refinements ───────────────────────────────────────────── */
-.starlight-aside {
-	border-radius: 8px;
-	border-width: 0.5px;
+/* ─── Method separator lines ──────────────────────────────────────────────── */
+.sl-markdown-content hr {
+    border-color: #222222;
+    margin: 2rem 0;
+}
+
+/* ─── Page subtitle (description under title) ────────────────────────────── */
+.sl-markdown-content p:first-of-type {
+    color: var(--sl-color-gray-2);
 }
