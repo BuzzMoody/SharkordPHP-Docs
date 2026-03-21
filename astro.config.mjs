@@ -9,7 +9,7 @@ export default defineConfig({
     integrations: [
         starlight({
             title: 'SharkordPHP',
-            favicon: '/favicon.svg',
+            favicon: '/favicon.ico',
             description: 'A ReactPHP Chatbot Framework for Sharkord',
             social: [
                 {
