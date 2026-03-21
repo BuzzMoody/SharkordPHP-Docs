@@ -2,7 +2,7 @@
  * src/styles/custom.css
  *
  * SharkordPHP docs theme — matched to the Sharkord platform docs aesthetic.
- * Near-black backgrounds, minimal chrome, white text, subtle gray borders.
+ * Near-black backgrounds in dark mode, clean whites in light mode.
  *
  * Starlight CSS variable reference:
  * https://starlight.astro.build/guides/css-and-tailwind/#starlight-css-variables
@@ -12,35 +12,28 @@
 :root[data-theme='dark'],
 :root {
 
-    /* Accent — white/near-white, matching the active sidebar item indicator */
     --sl-color-accent-low:  #1a1a1a;
     --sl-color-accent:      #888888;
     --sl-color-accent-high: #ffffff;
 
-    /* Page backgrounds */
-    --sl-color-bg:          #0e0e0e;
-    --sl-color-bg-nav:      #0e0e0e;
-    --sl-color-bg-sidebar:  #111111;
-
-    /* Inline code background */
+    --sl-color-bg:             #0e0e0e;
+    --sl-color-bg-nav:         #0e0e0e;
+    --sl-color-bg-sidebar:     #111111;
     --sl-color-bg-inline-code: #1c1c1c;
 
-    /* Borders */
-    --sl-color-hairline:        #222222;
-    --sl-color-hairline-light:  #1e1e1e;
-    --sl-color-hairline-shade:  #1a1a1a;
+    --sl-color-hairline:       #222222;
+    --sl-color-hairline-light: #1e1e1e;
+    --sl-color-hairline-shade: #1a1a1a;
 
-    /* Text scale — white down to near-invisible */
-    --sl-color-white:   #ffffff;
-    --sl-color-gray-1:  #d0d0d0;
-    --sl-color-gray-2:  #a0a0a0;
-    --sl-color-gray-3:  #666666;
-    --sl-color-gray-4:  #333333;
-    --sl-color-gray-5:  #1e1e1e;
-    --sl-color-gray-6:  #141414;
-    --sl-color-black:   #0e0e0e;
+    --sl-color-white:  #ffffff;
+    --sl-color-gray-1: #d0d0d0;
+    --sl-color-gray-2: #a0a0a0;
+    --sl-color-gray-3: #666666;
+    --sl-color-gray-4: #333333;
+    --sl-color-gray-5: #1e1e1e;
+    --sl-color-gray-6: #141414;
+    --sl-color-black:  #0e0e0e;
 
-    /* Monospace font */
     --sl-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 
 }
@@ -48,24 +41,35 @@
 /* ─── Light mode ──────────────────────────────────────────────────────────── */
 :root[data-theme='light'] {
 
-    --sl-color-accent-low:  #e8e8e8;
-    --sl-color-accent:      #555555;
+    --sl-color-accent-low:  #e0e0e0;
+    --sl-color-accent:      #333333;
     --sl-color-accent-high: #111111;
 
-    --sl-color-bg:          #ffffff;
-    --sl-color-bg-nav:      #fafafa;
-    --sl-color-bg-sidebar:  #f5f5f5;
-    --sl-color-bg-inline-code: #efefef;
+    --sl-color-bg:             #ffffff;
+    --sl-color-bg-nav:         #fafafa;
+    --sl-color-bg-sidebar:     #f5f5f5;
+    --sl-color-bg-inline-code: #ececec;
 
-    --sl-color-hairline:        #e0e0e0;
-    --sl-color-hairline-light:  #ebebeb;
-    --sl-color-hairline-shade:  #d8d8d8;
+    --sl-color-hairline:       #dedede;
+    --sl-color-hairline-light: #e8e8e8;
+    --sl-color-hairline-shade: #d4d4d4;
+
+    /* In light mode, Starlight uses --sl-color-white for text and
+       --sl-color-black for backgrounds — so we invert them. */
+    --sl-color-white:  #111111;
+    --sl-color-gray-1: #222222;
+    --sl-color-gray-2: #444444;
+    --sl-color-gray-3: #666666;
+    --sl-color-gray-4: #999999;
+    --sl-color-gray-5: #cccccc;
+    --sl-color-gray-6: #e8e8e8;
+    --sl-color-black:  #ffffff;
 
     --sl-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 
 }
 
-/* ─── Active sidebar item — white left border, subtle bg ─────────────────── */
+/* ─── Active sidebar item ─────────────────────────────────────────────────── */
 [data-theme='dark'] a[aria-current='page'],
 [data-theme='dark'] a[aria-current='page']:hover {
     background-color: #1e1e1e;
@@ -73,31 +77,71 @@
     border-inline-start-color: #ffffff;
 }
 
+[data-theme='light'] a[aria-current='page'],
+[data-theme='light'] a[aria-current='page']:hover {
+    background-color: #e2e2e2;
+    color: #111111;
+    border-inline-start-color: #111111;
+}
+
 /* ─── Sidebar group labels ────────────────────────────────────────────────── */
 [data-theme='dark'] .group-label span {
-    color: var(--sl-color-gray-2);
+    color: #a0a0a0;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
 
-/* ─── Code blocks ─────────────────────────────────────────────────────────── */
+[data-theme='light'] .group-label span {
+    color: #555555;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ─── Sidebar links — light mode ─────────────────────────────────────────── */
+[data-theme='light'] nav a {
+    color: #333333;
+}
+
+[data-theme='light'] nav a:hover {
+    color: #111111;
+}
+
+/* ─── Code blocks — dark in both modes (matches Sharkord style) ──────────── */
 .expressive-code pre {
     font-size: 0.875rem;
     background-color: #161616 !important;
-    border: 1px solid #222222;
     border-radius: 6px;
 }
 
+[data-theme='dark'] .expressive-code pre {
+    border: 1px solid #222222;
+}
+
+[data-theme='light'] .expressive-code pre {
+    border: 1px solid #cccccc;
+}
+
 /* ─── Inline code ─────────────────────────────────────────────────────────── */
-:not(pre) > code {
-    background-color: var(--sl-color-bg-inline-code);
-    border: 1px solid var(--sl-color-hairline);
+[data-theme='dark'] :not(pre) > code {
+    background-color: #1c1c1c;
+    border: 1px solid #2e2e2e;
+    color: #d0d0d0;
     border-radius: 4px;
     padding: 0.1em 0.35em;
     font-size: 0.875em;
-    color: #d0d0d0;
+}
+
+[data-theme='light'] :not(pre) > code {
+    background-color: #ececec;
+    border: 1px solid #d4d4d4;
+    color: #222222;
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+    font-size: 0.875em;
 }
 
 /* ─── Tables ──────────────────────────────────────────────────────────────── */
@@ -107,7 +151,7 @@ table {
     font-size: 0.9rem;
 }
 
-th {
+[data-theme='dark'] th {
     background-color: #161616;
     color: #d0d0d0;
     font-weight: 600;
@@ -116,9 +160,24 @@ th {
     border-bottom: 1px solid #333333;
 }
 
-td {
+[data-theme='light'] th {
+    background-color: #f0f0f0;
+    color: #111111;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #cccccc;
+}
+
+[data-theme='dark'] td {
     padding: 0.55rem 1rem;
     border-bottom: 1px solid #1e1e1e;
+}
+
+[data-theme='light'] td {
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid #e4e4e4;
+    color: #333333;
 }
 
 tr:last-child td {
@@ -126,12 +185,26 @@ tr:last-child td {
 }
 
 /* ─── Method separator lines ──────────────────────────────────────────────── */
-.sl-markdown-content hr {
+[data-theme='dark'] .sl-markdown-content hr {
     border-color: #222222;
     margin: 2rem 0;
 }
 
-/* ─── Page subtitle (description under title) ────────────────────────────── */
-.sl-markdown-content p:first-of-type {
-    color: var(--sl-color-gray-2);
+[data-theme='light'] .sl-markdown-content hr {
+    border-color: #dedede;
+    margin: 2rem 0;
+}
+
+/* ─── Light mode — headings ──────────────────────────────────────────────── */
+[data-theme='light'] .sl-markdown-content h1,
+[data-theme='light'] .sl-markdown-content h2,
+[data-theme='light'] .sl-markdown-content h3,
+[data-theme='light'] .sl-markdown-content h4 {
+    color: #111111;
+}
+
+/* ─── Light mode — body text ─────────────────────────────────────────────── */
+[data-theme='light'] .sl-markdown-content p,
+[data-theme='light'] .sl-markdown-content li {
+    color: #333333;
 }
